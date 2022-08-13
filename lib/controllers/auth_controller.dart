@@ -5,12 +5,32 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok/models/user.dart' as model;
+import 'package:tiktok/views/screens/home_screen.dart';
+import 'package:tiktok/views/screens/login_screen.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
-
+  late Rx<User?> _user;
   late Rx<File?> _pickedImage;
   File? get profiePhoto => _pickedImage.value;
+
+  User get user => _user.value!;
+
+  @override
+  void onReady() {
+    super.onReady();
+    _user = Rx<User?>(FirebaseAuth.instance.currentUser);
+    _user.bindStream(FirebaseAuth.instance.authStateChanges());
+    ever(_user, _setInitialScreen);
+  }
+
+  _setInitialScreen(User? user) {
+    if (user == null) {
+      Get.offAll(() => LoginScreen());
+    } else {
+      Get.offAll(() => const HomeScreen());
+    }
+  }
 
   void pickImage() async {
     final pickedImage =
@@ -72,5 +92,8 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar("Error creating an account", e.toString());
     }
+  }
+    void signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }
