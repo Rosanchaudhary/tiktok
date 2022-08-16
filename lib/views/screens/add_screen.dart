@@ -4,9 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok/views/screens/confirm_screen.dart';
 
-class AddScreen extends StatelessWidget {
+class AddScreen extends StatefulWidget {
   const AddScreen({Key? key}) : super(key: key);
 
+  @override
+  State<AddScreen> createState() => _AddScreenState();
+}
+
+class _AddScreenState extends State<AddScreen> {
+
+  
   pickvideo(ImageSource src, BuildContext context) async {
     final video = await ImagePicker().pickVideo(source: src);
     if (video != null) {
@@ -71,6 +78,12 @@ class AddScreen extends StatelessWidget {
                 ),
               ],
             ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    pickvideo(ImageSource.camera, context);
   }
 
   @override

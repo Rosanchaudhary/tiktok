@@ -6,7 +6,7 @@ class User {
   final String profilePhoto;
   final String email;
 
-  const User(
+  const User( 
       {required this.uid,
       required this.name,
       required this.profilePhoto,

@@ -36,8 +36,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           }
           return Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
-              backgroundColor: Colors.black12,
+              elevation: 0,
+              backgroundColor: Colors.black,
               leading: const Icon(
                 Icons.person_add_alt_1_outlined,
               ),
@@ -59,6 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       child: Column(
                         children: [
+                          const SizedBox(height: 2,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

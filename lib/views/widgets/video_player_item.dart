@@ -14,6 +14,7 @@ class VideoPlayerItem extends StatefulWidget {
 
 class _VideoPlayerItemState extends State<VideoPlayerItem> {
   late VideoPlayerController videoPlayerController;
+  bool videoPause = false;
 
   @override
   void initState() {
@@ -22,6 +23,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
       ..initialize().then((value) {
         videoPlayerController.play();
         videoPlayerController.setVolume(1);
+        videoPlayerController.setLooping(true);
       });
   }
 
@@ -35,13 +37,36 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Container(
-      width: size.width,
-      height: size.height,
-      decoration: const BoxDecoration(
-        color: Colors.black,
-      ),
-      child: VideoPlayer(videoPlayerController),
+    return GestureDetector(
+      onTap: () {
+        videoPlayerController.pause();
+        setState(() {
+          videoPause = true;
+        });
+      },
+      child: Stack(children: [
+        Container(
+          width: size.width,
+          height: size.height,
+          decoration: const BoxDecoration(
+            color: Colors.black,
+          ),
+          child: VideoPlayer(videoPlayerController),
+        ),
+        if (videoPause) ...[
+          Center(
+            child: IconButton(
+              onPressed: () {
+                videoPlayerController.play();
+                setState(() {
+                  videoPause = false;
+                });
+              },
+              icon: const Icon(Icons.play_arrow,color: Colors.white,size: 60,),
+            ),
+          )
+        ]
+      ]),
     );
   }
 }

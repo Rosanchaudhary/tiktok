@@ -61,7 +61,7 @@ class CommentScreen extends StatelessWidget {
                             children: [
                               Text(
                                 timeago.format(
-                                  comment.datePublished.toDate(),
+                                  comment.datePublished,
                                 ),
                                 style: const TextStyle(
                                   fontSize: 12,

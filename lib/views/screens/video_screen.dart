@@ -60,7 +60,7 @@ class VideoScreen extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25),
                 child: Image(
-                  image: NetworkImage(profilePhoto),
+                  image: NetworkImage(profilePhoto), 
                   fit: BoxFit.cover,
                 ),
               ))
@@ -83,8 +83,13 @@ class VideoScreen extends StatelessWidget {
             final data = videoController.videosList[index];
             return Stack(
               children: [
-                VideoPlayerItem(
-                  videoUrl: data.videoUrl,
+                GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: VideoPlayerItem(
+                    videoUrl: data.videoUrl,
+                  ),
                 ),
                 Column(
                   children: [

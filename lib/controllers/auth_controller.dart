@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tiktok/models/user.dart' as model;
 import 'package:tiktok/views/screens/home_screen.dart';
 import 'package:tiktok/views/screens/login_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -40,6 +41,37 @@ class AuthController extends GetxController {
           "You have successfully selected your profile picture");
     }
     _pickedImage = Rx<File?>(File(pickedImage!.path));
+  }
+
+  void signInWithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+
+      GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      if (googleSignInAccount == null) return;
+
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      ); 
+      final authResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      model.User user = model.User(
+          name: googleSignInAccount.displayName ??
+              googleSignInAccount.email.split("@")[0],
+          email: googleSignInAccount.email,
+          uid: authResult.user!.uid,
+          profilePhoto: googleSignInAccount.photoUrl ??
+              "https://media.istockphoto.com/vectors/user-icon-flat-isolated-on-white-background-user-symbol-vector-vector-id1300845620");
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(authResult.user!.uid)
+          .set(user.toJson());
+    } catch (e) {
+      Get.snackbar("Error creating an account", e.toString());
+    }
   }
 
   //register the user
@@ -93,7 +125,8 @@ class AuthController extends GetxController {
       Get.snackbar("Error creating an account", e.toString());
     }
   }
-    void signOut() async {
+
+  void signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 }
