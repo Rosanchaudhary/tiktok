@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok/views/screens/confirm_screen.dart';
+import 'package:image_picker_for_web/image_picker_for_web.dart' as imweb;
 
 class AddScreen extends StatefulWidget {
   const AddScreen({Key? key}) : super(key: key);
@@ -12,9 +13,8 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-
-  
   pickvideo(ImageSource src, BuildContext context) async {
+   
     final video = await ImagePicker().pickVideo(source: src);
     if (video != null) {
       // ignore: use_build_context_synchronously
@@ -37,6 +37,7 @@ class _AddScreenState extends State<AddScreen> {
                 SimpleDialogOption(
                   onPressed: () {
                     pickvideo(ImageSource.camera, context);
+                   //imweb.ImagePickerPlugin().getVideo(source: ImageSource.camera);
                   },
                   child: Row(
                     children: const [
@@ -83,7 +84,7 @@ class _AddScreenState extends State<AddScreen> {
   @override
   void initState() {
     super.initState();
-    pickvideo(ImageSource.camera, context);
+    // pickvideo(ImageSource.camera, context);
   }
 
   @override
