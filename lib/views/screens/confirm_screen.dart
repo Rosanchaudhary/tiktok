@@ -79,8 +79,8 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: TextInputField(
                         controller: _captionController,
                         labelText: "Caption",
-                        icon: Icons.closed_caption),
-                  ),
+                        icon: Icons.closed_caption), 
+                  ), 
                   const SizedBox(
                     height: 10,
                   ),
@@ -89,7 +89,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                         uploadVideoController.uploadVideo(_songController.text,
                             _captionController.text, widget.videoPath);
                       },
-                      child: const Text(
+                      child: const Text( 
                         "Share!",
                         style: TextStyle(fontSize: 20, color: Colors.black),
                       ))

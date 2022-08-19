@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/controllers/auth_controller.dart';
 import 'package:tiktok/controllers/comment_contoller.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 // ignore: must_be_immutable
 class CommentScreen extends StatelessWidget {
@@ -32,6 +31,8 @@ class CommentScreen extends StatelessWidget {
                       itemCount: commentController.comments.length,
                       itemBuilder: (context, index) {
                         final comment = commentController.comments[index];
+
+                        print(comment);
                         return ListTile(
                           leading: CircleAvatar(
                             backgroundColor: Colors.black,
@@ -59,15 +60,6 @@ class CommentScreen extends StatelessWidget {
                           ),
                           subtitle: Row(
                             children: [
-                              Text(
-                                timeago.format(
-                                  comment.datePublished,
-                                ),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                ),
-                              ),
                               const SizedBox(
                                 width: 10,
                               ),

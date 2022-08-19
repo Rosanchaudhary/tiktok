@@ -24,13 +24,16 @@ class CommentController extends GetxController {
           .map(
         (QuerySnapshot query) {
           List<Comment> retValue = [];
-          for (var element in query.docs) {
+          for (var element in query.docs) { 
+    print(retValue);
             retValue.add(Comment.fromSnap(element));
           }
           return retValue;
         },
       ),
     );
+
+
   }
 
   postComment(String commentText) async {
@@ -48,9 +51,8 @@ class CommentController extends GetxController {
         int len = allDocs.docs.length;
 
         Comment comment = Comment(
-          username: (userDoc.data()! as dynamic)['name'],
+          username: (userDoc.data()! as dynamic)['name'], 
           comment: commentText.trim(),
-          datePublished: DateTime.now(),
           likes: [],
           profilePhoto: (userDoc.data()! as dynamic)['profilePhoto'],
           uid: AuthController.instance.user.uid,

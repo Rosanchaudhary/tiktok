@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:tiktok/models/video.dart';
 import 'package:video_compress/video_compress.dart';
 
-class UploadVideoController extends GetxController {
+class UploadVideoController extends GetxController { 
   // _compressVideo(String videoPath) async {
   //   final compressedVideo = await VideoCompress.compressVideo(videoPath,
   //       quality: VideoQuality.MediumQuality);

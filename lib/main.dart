@@ -6,15 +6,8 @@ import 'package:tiktok/views/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: "AIzaSyBCzPXNNz713b4Lbn5pk1x9myfAD1mIz-4", 
-      appId: "1:493469859666:web:2466de02940ab203bf448b",
-      messagingSenderId:  "493469859666",
-      projectId: "tiktok-49317",
-      ) 
-  ).then((value) {
-    Get.put(AuthController()); 
+  await Firebase.initializeApp().then((value) {
+    Get.put(AuthController());
   });
   runApp(const MyApp());
 }
